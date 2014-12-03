@@ -3,8 +3,8 @@ import java.util.*;
 class DtoAndCriteriaBuild {
     public static void main (String [] args)
     {
-        FolderSearchReq fsReq = new FolderSearchReq();
-        List<String> folders = fsReq.toCriteria(new FolderCriteria()).exec();
+        FolderSearchReq folderReq = new FolderSearchReq();
+        List<String> folders = folderReq.toCriteria(new FolderCriteria()).exec();
         System.out.println(folders);
 
         // AttachmentSearchReq atReq = new AttachmentSearchReq();
@@ -37,24 +37,9 @@ class FolderSearchReq extends AbstractSearchReq {
 class AbstractCritreria {
     List<String> registerdFilters = new ArrayList<String>();
 
-    String showRegisteredFilters() {
-        String buf = "";
-        for(String filterItem: registerdFilters) {
-            buf += filterItem;
-        }
-        return buf;
-    }
-
     List<String> exec() {
         return registerdFilters;
     }
-}
-
-interface FsBasicCriteriaInteface {
-    FsBasicCriteriaInteface filterByName(String name);
-    FsBasicCriteriaInteface filterByFullPath(String path);
-    FsBasicCriteriaInteface filterByUser(String user);
-    FsBasicCriteriaInteface filterByGroup(String group);
 }
 
 abstract class FsBaseCriteria extends AbstractCritreria {
@@ -65,7 +50,6 @@ abstract class FsBaseCriteria extends AbstractCritreria {
 }
 
 
-//class FolderCriteria extends AbstractCritreria implements FsBasicCriteriaInteface {
 class FolderCriteria extends FsBaseCriteria {
 
     public FolderCriteria filterByName(String name) {
